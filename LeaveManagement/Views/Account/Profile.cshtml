@@ -1,0 +1,81 @@
+﻿@model LeaveManagement.ViewModel.Employee.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+    }
+
+    .container {
+        position: relative;
+    }
+
+        .container img {
+            display: block;
+        }
+
+    .img-over-icon {
+        position: absolute;
+        bottom: -5px;
+        left: 100px;
+    }
+</style>
+<div class="my-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card col-sm-6">
+            <div class="row justify-content-end">
+                <a href="/account/update/@Model.Id" class="btn btn-outline-info text-decoration-none"><i class="fa fa-pencil" aria-hidden="true"></i>Edit Profile</a>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-sm-3 justify-content-end mt-0 container">
+                        
+                            <img src="https://i.pinimg.com/originals/19/b8/d6/19b8d6e9b13eef23ec9c746968bb88b1.jpg" width="120" />
+                        <div class="col justify-content-center mt-0">
+                            <button type="button" class="btn btn-primary btn-circle img-over-icon" data-toggle="modal" data-target="#uploadImage">
+                                <i class="fa fa-camera" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6  ">
+                        <div class="row ml-4">
+                            <h4>@Model.EmployeeName</h4>
+                        </div>
+                        <div class="row">
+                            <ul style="list-style-type:none;">
+                                <li class="mb-2"><i class="fa fa-envelope" aria-hidden="true"></i><span class="mx-2">@Model.Email</span></li>
+                                <li class="mb-2"><i class="fa fa-phone fa-flip-horizontal" aria-hidden="true"></i><span class="mx-2">@Model.Phone</span></li>
+                                @if (Model.DateOfBirth != null)
+                                {
+                                    <li class="mb-2">
+                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                        <span class="mx-2">@Model.DateOfBirth.Value.ToString("MMM dd, yyyy")</span>
+                                    </li>
+                                }
+                                @if (Model.Address != null)
+                                {
+                                    <li class="mb-2">
+                                        <i class="fa fa-address-book" aria-hidden="true"></i>
+                                        <span class="mx-2 ">@Model.Address</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
