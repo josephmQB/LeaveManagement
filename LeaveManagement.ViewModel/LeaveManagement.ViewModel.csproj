@@ -85,6 +85,7 @@
     <Compile Include="Employee\LoginViewModel.cs" />
     <Compile Include="Employee\RegisterViewModel.cs" />
     <Compile Include="Employee\UpdateEmployeeViewModel.cs" />
+    <Compile Include="Employee\UpdateImageUrlViewModel.cs" />
     <Compile Include="Employee\UpdatePasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -22,6 +22,7 @@ namespace LeaveManagement.Repository
         Employee GetEmployeeByEmailAndPassword(string Email, string Password);
         void Login(IAuthenticationManager authenticationManager, Employee e);
         bool UpdatePassword(string Id, string CurrentPassword, string NewPassword);
+        void UpdateImageUrl(string Id, string ImageUrl);
 
     }
     public class EmployeeRepository : IEmployeeRepository
@@ -96,6 +97,12 @@ namespace LeaveManagement.Repository
         {
             IdentityResult result = userManager.Update(e);
             return result.Succeeded;
+        }
+        public void UpdateImageUrl(string Id, string ImageUrl)
+        {
+            var e = userManager.FindById(Id);
+            e.ImageUrl = ImageUrl;
+            db.SaveChanges();
         }
 
     }

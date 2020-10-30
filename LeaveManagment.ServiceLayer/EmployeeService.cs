@@ -23,6 +23,7 @@ namespace LeaveManagment.ServiceLayer
         EmployeeViewModel GetEmployeeByEmailAndPassword(LoginViewModel lvm);
         void Login(IAuthenticationManager authenticationManager, EmployeeViewModel evm);
         void UpdatePassword(UpdatePasswordViewModel upvm);
+         void UpdateImageUrl(UpdateImageUrlViewModel uiuvm);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -114,6 +115,11 @@ namespace LeaveManagment.ServiceLayer
         public void UpdatePassword(UpdatePasswordViewModel upvm)
         {
             var result = er.UpdatePassword(upvm.Id, upvm.CurrentPassword, upvm.NewPassword);
+        }
+
+        public void UpdateImageUrl(UpdateImageUrlViewModel uiuvm)
+        {
+            er.UpdateImageUrl(uiuvm.Id, uiuvm.ImageUrl);
         }
     }
 }

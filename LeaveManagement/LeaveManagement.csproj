@@ -303,6 +303,7 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\Update.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Shared\UserImgUpload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

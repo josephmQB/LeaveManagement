@@ -80,5 +80,29 @@ namespace LeaveManagement.Controllers
                 return View(uevm);
             }
         }
+        [HttpPost]
+        [ActionName("Upload")]
+        public ActionResult UpdateImage(UpdateImageUrlViewModel uivm)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Request.Files.Count >= 1)
+                {
+                    var file = Request.Files[0];
+                    var imgBytes = new Byte[file.ContentLength];
+                    file.InputStream.Read(imgBytes, 0, file.ContentLength);
+                    var base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
+                    uivm.ImageUrl = base64String;
+                }
+                this.es.UpdateImageUrl(uivm);
+                return RedirectToAction("MyProfile", "Account");
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid data");
+                return View(uivm);
+            }
+
+        }
     }
 }

@@ -39,40 +39,71 @@
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-sm-3 justify-content-end mt-0 container">
-                        
+                        @if (Model.ImageUrl != null)
+                        {
+                            <img src="data:image/png;base64,@Model.ImageUrl" width="120" />
+                        }
+                        else
+                        {
                             <img src="https://i.pinimg.com/originals/19/b8/d6/19b8d6e9b13eef23ec9c746968bb88b1.jpg" width="120" />
-                        <div class="col justify-content-center mt-0">
-                            <button type="button" class="btn btn-primary btn-circle img-over-icon" data-toggle="modal" data-target="#uploadImage">
-                                <i class="fa fa-camera" aria-hidden="true"></i>
-                            </button>
+                        }
+                    <div class="col justify-content-center mt-0">
+                        <button type="button" class="btn btn-primary btn-circle img-over-icon" data-toggle="modal" data-target="#uploadImage">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="uploadImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/account/UpdateImage" method="post" enctype="multipart/form-data">
+                                            <div class="form-group mr-3">
+                                                <input type="hidden" class="form-control" name="EmployeeId" value="@Model.Id" />
+                                                <label for="Image">User Image</label>
+                                                @{Html.RenderPartial("UserImgUpload"); }
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group ">
+                                                    <button type="submit" class="btn btn-primary align-items-center mt-4">Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6  ">
+                            <div class="row ml-4">
+                                <h4>@Model.EmployeeName</h4>
+                            </div>
+                            <div class="row">
+                                <ul style="list-style-type:none;">
+                                    <li class="mb-2"><i class="fa fa-envelope" aria-hidden="true"></i><span class="mx-2">@Model.Email</span></li>
+                                    <li class="mb-2"><i class="fa fa-phone fa-flip-horizontal" aria-hidden="true"></i><span class="mx-2">@Model.Phone</span></li>
+                                    @if (Model.DateOfBirth != null)
+                                    {
+                                        <li class="mb-2">
+                                            <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                            <span class="mx-2">@Model.DateOfBirth.Value.ToString("MMM dd, yyyy")</span>
+                                        </li>
+                                    }
+                                    @if (Model.Address != null)
+                                    {
+                                        <li class="mb-2">
+                                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                                            <span class="mx-2 ">@Model.Address</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6  ">
-                        <div class="row ml-4">
-                            <h4>@Model.EmployeeName</h4>
-                        </div>
-                        <div class="row">
-                            <ul style="list-style-type:none;">
-                                <li class="mb-2"><i class="fa fa-envelope" aria-hidden="true"></i><span class="mx-2">@Model.Email</span></li>
-                                <li class="mb-2"><i class="fa fa-phone fa-flip-horizontal" aria-hidden="true"></i><span class="mx-2">@Model.Phone</span></li>
-                                @if (Model.DateOfBirth != null)
-                                {
-                                    <li class="mb-2">
-                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
-                                        <span class="mx-2">@Model.DateOfBirth.Value.ToString("MMM dd, yyyy")</span>
-                                    </li>
-                                }
-                                @if (Model.Address != null)
-                                {
-                                    <li class="mb-2">
-                                        <i class="fa fa-address-book" aria-hidden="true"></i>
-                                        <span class="mx-2 ">@Model.Address</span>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
