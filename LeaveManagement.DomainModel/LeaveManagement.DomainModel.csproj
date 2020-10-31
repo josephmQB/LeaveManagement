@@ -84,6 +84,7 @@
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="ApplicationUserStore.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="Leave.cs" />
     <Compile Include="LeaveManagementDbContext.cs" />
     <Compile Include="Migrations\202010290552355_Initial.cs" />
     <Compile Include="Migrations\202010290552355_Initial.designer.cs">
@@ -92,6 +93,10 @@
     <Compile Include="Migrations\202010300950447_ImageUrl.cs" />
     <Compile Include="Migrations\202010300950447_ImageUrl.designer.cs">
       <DependentUpon>202010300950447_ImageUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010310624382_LeaveTable.cs" />
+    <Compile Include="Migrations\202010310624382_LeaveTable.designer.cs">
+      <DependentUpon>202010310624382_LeaveTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010300950447_ImageUrl.resx">
       <DependentUpon>202010300950447_ImageUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010310624382_LeaveTable.resx">
+      <DependentUpon>202010310624382_LeaveTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

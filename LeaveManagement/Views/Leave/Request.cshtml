@@ -1,0 +1,48 @@
+﻿@model LeaveManagement.ViewModel.Leave.RequestLeaveViewModel
+
+@{
+    ViewBag.Title = "Request";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="my-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card col-sm-6">
+            <h1 class="card-title text-center mt-4">Leave Request</h1>
+            <div class="card-body">
+                <form action="/leave/request" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group mr-3">
+                        <label for="txtNoOfDays">No Of Days</label>
+                        <input type="number" class="form-control" id="txtNoOfDays" name="NoOfDays" autofocus="autofocus" />
+                        @Html.ValidationMessageFor(temp => temp.NoOfDays)
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="txtStartDate">Start Date</label>
+                        <input type="date" class="form-control" id="txtStartDate" name="StartDate" />
+                        @Html.ValidationMessageFor(temp => temp.StartDate)
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="txtEndDate">End Date</label>
+                        <input type="date" class="form-control" id="txtEndDate" name="EndDate" />
+                        @Html.ValidationMessageFor(temp => temp.EndDate)
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="txtLeaveDescription">Leave Description</label>
+                        <input type="text" class="form-control" id="txtLeaveDescription" name="LeaveDescription" />
+                        @Html.ValidationMessageFor(temp => temp.LeaveDescription)
+                    </div>
+                    <input type="hidden" name="EmployeeID" value="@ViewBag.EmpId" />
+                    @Html.ValidationSummary()
+                    <div class="form-row justify-content-center align-items-center">
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary align-items-center mt-4">Request</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

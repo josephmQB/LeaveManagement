@@ -14,5 +14,6 @@ namespace LeaveManagement.DomainModel
         {
 
         }
+        public DbSet<Leave> Leaves { get; set; }
     }
 }
