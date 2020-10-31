@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
 namespace LeaveManagement.Repository
 {
     public interface IEmployeeRepository
@@ -19,8 +20,7 @@ namespace LeaveManagement.Repository
         List<Employee> GetEmployees();
         Employee GetEmployeeById(string id);
         Employee GetEmployeeByEmail(string Email);
-        Employee GetEmployeeByEmailAndPassword(string Email, string Password);
-        void Login(IAuthenticationManager authenticationManager, Employee e);
+        void Login(IAuthenticationManager authenticationManager, string Email, string Password);
         bool UpdatePassword(string Id, string CurrentPassword, string NewPassword);
         void UpdateImageUrl(string Id, string ImageUrl);
 
@@ -42,24 +42,20 @@ namespace LeaveManagement.Repository
             IdentityResult result = userManager.ChangePassword(Id, CurrentPassword, NewPassword);
             return result.Succeeded;
         }
-        public void Login(IAuthenticationManager authenticationManager,Employee e)
-        {
-            var userIdentity = userManager.CreateIdentity(e, DefaultAuthenticationTypes.ApplicationCookie);
-            authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-        }
         public Employee GetEmployeeByEmail(string Email)
         {
             Employee e = userManager.FindByEmail(Email);
             return e;
         }
 
-        public Employee GetEmployeeByEmailAndPassword(string Email, string Password)
+        public void Login(IAuthenticationManager authenticationManager, string Email, string Password)
         {
             Employee e = userManager.FindByEmail(Email);
             if (userManager.CheckPassword(e, Password))
-                return e;
-            else
-                return null;
+            {
+                var userIdentity = userManager.CreateIdentity(e,DefaultAuthenticationTypes.ApplicationCookie);
+                authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
+            }
         }
 
         public bool DeleteEmployee(string id)
@@ -95,7 +91,12 @@ namespace LeaveManagement.Repository
 
         public bool UpdateEmpolyeeDetails(Employee e)
         {
-            IdentityResult result = userManager.Update(e);
+            Employee employee = userManager.FindById(e.Id);
+            employee.EmployeeName = e.EmployeeName;
+            employee.DateOfBirth = e.DateOfBirth;
+            employee.Phone = e.Phone;
+            employee.Address = e.Address;
+            IdentityResult result = userManager.Update(employee);
             return result.Succeeded;
         }
         public void UpdateImageUrl(string Id, string ImageUrl)

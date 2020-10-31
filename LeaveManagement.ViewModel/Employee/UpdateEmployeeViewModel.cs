@@ -12,7 +12,7 @@ namespace LeaveManagement.ViewModel.Employee
         [Required]
         public string Email { get; set; }
         [Required]
-        public string EmployeeId { get; set; }
+        public string Id { get; set; }
         [Required]
         public string EmployeeName { get; set; }
         [Required]

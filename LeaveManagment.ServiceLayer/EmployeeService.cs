@@ -20,8 +20,7 @@ namespace LeaveManagment.ServiceLayer
         List<EmployeeViewModel> GetEmployees();
         EmployeeViewModel GetEmployeeByEmail(string Email);
         EmployeeViewModel GetEmployeeByID(String ID);
-        EmployeeViewModel GetEmployeeByEmailAndPassword(LoginViewModel lvm);
-        void Login(IAuthenticationManager authenticationManager, EmployeeViewModel evm);
+        void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm);
         void UpdatePassword(UpdatePasswordViewModel upvm);
          void UpdateImageUrl(UpdateImageUrlViewModel uiuvm);
     }
@@ -60,19 +59,6 @@ namespace LeaveManagment.ServiceLayer
             return null;
         }
 
-        public EmployeeViewModel GetEmployeeByEmailAndPassword(LoginViewModel lvm)
-        {
-            Employee e = er.GetEmployeeByEmailAndPassword(lvm.Email,lvm.Password);
-            if (e != null)
-            {
-                var config = new MapperConfiguration(cfg => { cfg.CreateMap<Employee, EmployeeViewModel>(); cfg.IgnoreUnmapped(); });
-                IMapper mapper = config.CreateMapper();
-                EmployeeViewModel evm = mapper.Map<Employee, EmployeeViewModel>(e);
-                return evm;
-            }
-            return null;
-        }
-
         public EmployeeViewModel GetEmployeeByID(string ID)
         {
             Employee e = er.GetEmployeeById(ID);
@@ -96,12 +82,10 @@ namespace LeaveManagment.ServiceLayer
             var result = er.InsertEmployee(e);
         }
 
-        public void Login(IAuthenticationManager authenticationManager, EmployeeViewModel evm)
+        public void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm)
         {
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<EmployeeViewModel, Employee>(); cfg.IgnoreUnmapped(); });
-            IMapper mapper = config.CreateMapper();
-            Employee e = mapper.Map<EmployeeViewModel, Employee>(evm);
-            er.Login(authenticationManager, e);
+          
+            er.Login(authenticationManager, lvm.Email,lvm.Password);
         }
 
         public void UpdateEmployeeDetails(UpdateEmployeeViewModel uevm)

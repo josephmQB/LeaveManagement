@@ -1,0 +1,42 @@
+﻿@model LeaveManagement.ViewModel.Employee.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="my-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card col-sm-4">
+            <h1 class="card-title text-center mt-4">Login</h1>
+            <div class="card-body">
+                <form action="/account/login" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group mr-3">
+                        <label for="email" class="mr-1">Email</label>
+                        <input type="email" class="form-control" id="email" name="Email" autofocus="autofocus">
+                    </div>
+
+                    <div class="form-group mr-3">
+                        <label for="pwd" class="mr-1">Password</label>
+                        <input type="password" class="form-control" id="pwd" name="Password" minlength="6">
+                    </div>
+
+                    @Html.ValidationSummary()
+                    <div class="form-row justify-content-center align-items-center">
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary align-items-center mt-4">Login</button>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <div class="d-flex justify-content-center links">
+                            Don't have an account? <a href="/account/register" class="ml-2">Sign Up</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

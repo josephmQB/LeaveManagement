@@ -61,7 +61,7 @@ namespace LeaveManagement.Controllers
         public ActionResult UpdateEmplyee(string id )
         {
             EmployeeViewModel evm = this.es.GetEmployeeByID(id);
-            UpdateEmployeeViewModel uevm = new UpdateEmployeeViewModel() { EmployeeId = evm.Id, EmployeeName = evm.EmployeeName, Address = evm.Address, DateOfBirth = evm.DateOfBirth, Phone = evm.Phone, Email = evm.Email };
+            UpdateEmployeeViewModel uevm = new UpdateEmployeeViewModel() { Id = evm.Id, EmployeeName = evm.EmployeeName, Address = evm.Address, DateOfBirth = evm.DateOfBirth, Phone = evm.Phone, Email = evm.Email };
             return View(uevm);
         }
         [ValidateAntiForgeryToken]
@@ -95,14 +95,31 @@ namespace LeaveManagement.Controllers
                     uivm.ImageUrl = base64String;
                 }
                 this.es.UpdateImageUrl(uivm);
-                return RedirectToAction("MyProfile", "Account");
+                return RedirectToAction("Profile", "Account");
             }
             else
             {
                 ModelState.AddModelError("x", "Invalid data");
                 return View(uivm);
             }
-
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(LoginViewModel lvm)
+        {
+           
+                var authenticationManager = HttpContext.GetOwinContext().Authentication;
+                this.es.Login(authenticationManager, lvm);
+                return RedirectToAction("Profile", "Account");
+        }
+        public ActionResult Logout()
+        {
+            var authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Login", "Account");
         }
     }
 }
