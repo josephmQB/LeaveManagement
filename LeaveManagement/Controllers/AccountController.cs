@@ -34,6 +34,7 @@ namespace LeaveManagement.Controllers
         public ActionResult MyProfile()
         {
             var Id = User.Identity.GetUserId();
+            ViewBag.Emplyee = this.es.GetEmployees();
             EmployeeViewModel evm = this.es.GetEmployeeByID(Id);
             return View(evm);
         }

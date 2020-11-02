@@ -331,6 +331,7 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\Update.cshtml" />
     <Content Include="Views\Home\SearchByRole.cshtml" />
+    <Content Include="Views\Home\SearchByName.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

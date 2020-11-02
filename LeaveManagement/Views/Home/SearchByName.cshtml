@@ -1,0 +1,25 @@
+﻿@model LeaveManagement.ViewModel.Employee.EmployeeViewModel
+@{
+    ViewBag.Title = "SearchByName";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Employee</h2>
+<table class="table">
+    <tr>
+        <th>Employee Name</th>
+        <td>@Model.EmployeeName</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Role</th>
+        <td>@Model.EmployeeRoles</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>@Model.Phone</td>
+    </tr>
+</table>

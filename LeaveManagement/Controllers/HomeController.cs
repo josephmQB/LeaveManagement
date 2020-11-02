@@ -21,5 +21,10 @@ namespace LeaveManagement.Controllers
             List<EmployeeViewModel> evms = this.es.GetEmployeesByRoles(Role); 
             return View(evms);
         }
+        public ActionResult SearchByName(string Id)
+        {
+            EmployeeViewModel evm = this.es.GetEmployeeByID(Id);
+            return View(evm);
+        }
     }
 }

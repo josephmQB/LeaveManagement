@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -49,16 +50,6 @@
                 Welcome to, @User.Identity.Name
             </div>
         }
-    <form class="form-inline my-2 my-lg-0" action="/home/SearchByRoles">
-        <label for="SearchByRoles" class="mr-1">Search by Roles</label>
-        <select type="text" class="form-control" id="SearchByRoles" name="SearchByRoles">
-            <option value="">Please select</option>
-            <option value="Employee">Employee</option>
-            <option value="PM">Project Manager</option>
-            <option value="HR">HR</option>
-        </select>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
     </nav>
     <div class="container-fluid">
         @RenderBody()
