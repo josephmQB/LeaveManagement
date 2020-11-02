@@ -10,7 +10,7 @@
         <div class="card col-sm-6">
             <h1 class="card-title text-center mt-4">Leave Request</h1>
             <div class="card-body">
-                <form action="/leave/request" method="post">
+                <form action="/Employee/leave/request" method="post">
                     @Html.AntiForgeryToken()
                     <div class="form-group mr-3">
                         <label for="txtNoOfDays">No Of Days</label>
@@ -31,6 +31,16 @@
                         <label for="txtLeaveDescription">Leave Description</label>
                         <input type="text" class="form-control" id="txtLeaveDescription" name="LeaveDescription" />
                         @Html.ValidationMessageFor(temp => temp.LeaveDescription)
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="txtProjectManager">Project Manager</label>
+                        <select type="text" class="form-control" id="txtProjectManager" name="ProjectManagerID">
+                            <option value="">Please select</option>
+                            @foreach (var item in ViewBag.projectManagers)
+                            {
+                                <option value="@item.PmID">@item.PmName</option>
+                            }
+                        </select>
                     </div>
                     <input type="hidden" name="EmployeeID" value="@ViewBag.EmpId" />
                     @Html.ValidationSummary()

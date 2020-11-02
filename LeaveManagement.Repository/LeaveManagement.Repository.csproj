@@ -104,7 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmployeeRepository.cs" />
+    <Compile Include="HrRoleRepository.cs" />
     <Compile Include="LeaveRepository.cs" />
+    <Compile Include="ProjectManagerRoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

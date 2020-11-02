@@ -1,0 +1,35 @@
+﻿@model LeaveManagement.ViewModel.Employee.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Delete</h2>
+
+<form action="/HR/employee/delete" method="post">
+    <table class="table">
+        <tr>
+            <td>
+                <label for="EmplyeeName">Employee Name</label>
+            </td>
+            <td>
+                <input type="hidden" name="Id" value="@Model.Id" />
+                @Model.EmployeeName
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="Email">Email</label>
+            </td>
+            <td>
+                @Model.Email
+            </td>
+        </tr>
+    </table>
+    <div>
+        <small>Are you sure to delete this employee?</small>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-dark" href="/HR/employee/show">Cancel</a>
+</form>

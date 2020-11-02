@@ -1,0 +1,39 @@
+﻿@model List<LeaveManagement.ViewModel.Leave.LeaveViewModel>
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Leaves</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Number of Days</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Remarks </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EmployeeName</td>
+                <td>@item.NoOfDays</td>
+                <td>@item.StartDate.Value.ToString("MMM dd, yyyy")</td>
+                <td>@item.EndDate.Value.ToString("MMM dd, yyyy")</td>
+                <td>@item.LeaveDescription</td>
+                <td>@item.LeaveStatus</td>
+                <td>@item.Remarks</td>
+                <td>
+                    <a href="/PM/Leave/status/@item.LeaveID" class="nav-link d-sm-inline-block">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

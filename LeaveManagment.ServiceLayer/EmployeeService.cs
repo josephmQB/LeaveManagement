@@ -23,6 +23,7 @@ namespace LeaveManagment.ServiceLayer
         void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm);
         void UpdatePassword(UpdatePasswordViewModel upvm);
          void UpdateImageUrl(UpdateImageUrlViewModel uiuvm);
+        void UpdateEmployeeDetailsByHR(UpdateEmployeeByHRViewModel uevm);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -94,6 +95,13 @@ namespace LeaveManagment.ServiceLayer
             IMapper mapper = config.CreateMapper();
             Employee e = mapper.Map<UpdateEmployeeViewModel, Employee>(uevm);
             var result = er.UpdateEmpolyeeDetails(e);
+        }
+        public void UpdateEmployeeDetailsByHR(UpdateEmployeeByHRViewModel uevm)
+        {
+            var config = new MapperConfiguration(cfg => { cfg.CreateMap<UpdateEmployeeByHRViewModel, Employee>(); cfg.IgnoreUnmapped(); });
+            IMapper mapper = config.CreateMapper();
+            Employee e = mapper.Map<UpdateEmployeeByHRViewModel, Employee>(uevm);
+            var result = er.UpdateEmpolyeeDetailsByHR(e);
         }
 
         public void UpdatePassword(UpdatePasswordViewModel upvm)

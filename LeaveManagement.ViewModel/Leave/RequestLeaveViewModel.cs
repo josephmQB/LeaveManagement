@@ -19,5 +19,7 @@ namespace LeaveManagement.ViewModel.Leave
         public string LeaveDescription { get; set; }
         [Required]
         public string EmployeeID { get; set; }
+        [Required]
+        public int ProjectManagerID { get; set; }
     }
 }

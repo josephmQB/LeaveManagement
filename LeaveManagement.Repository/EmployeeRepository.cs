@@ -23,6 +23,7 @@ namespace LeaveManagement.Repository
         void Login(IAuthenticationManager authenticationManager, string Email, string Password);
         bool UpdatePassword(string Id, string CurrentPassword, string NewPassword);
         void UpdateImageUrl(string Id, string ImageUrl);
+        bool UpdateEmpolyeeDetailsByHR(Employee e);
 
     }
     public class EmployeeRepository : IEmployeeRepository
@@ -30,11 +31,15 @@ namespace LeaveManagement.Repository
         LeaveManagementDbContext db;
         ApplicationUserStore userStore;
         ApplicationUserManager userManager;
+        IHrRoleRepository hr;
+        IProjectManagerRoleRepository pr;
         public EmployeeRepository()
         {
             db = new LeaveManagementDbContext();
             userStore = new ApplicationUserStore(db);
             userManager = new ApplicationUserManager(userStore);
+            hr = new HrRoleRepository();
+            pr = new ProjectManagerRoleRepository();
         }
       
         public bool UpdatePassword(string Id, string CurrentPassword, string NewPassword)
@@ -61,7 +66,7 @@ namespace LeaveManagement.Repository
         public bool DeleteEmployee(string id)
         {
             Employee e = userManager.FindById(id);
-            userManager.RemoveFromRoles(e.Id, "Employee");
+            userManager.RemoveFromRoles(e.Id, e.EmployeeRoles);
             IdentityResult result = userManager.Delete(e);
             return result.Succeeded;
         }
@@ -74,7 +79,7 @@ namespace LeaveManagement.Repository
 
         public List<Employee> GetEmployees()
         {
-            List<Employee> employees = userManager.Users.Where(temp => temp.Address == "").ToList();
+            List<Employee> employees = userManager.Users.Select(temp => temp).ToList();
             return employees;
         }
 
@@ -83,7 +88,19 @@ namespace LeaveManagement.Repository
             IdentityResult result = userManager.Create(e);
             if (result.Succeeded)
             {
-                userManager.AddToRole(e.Id, "Employee");
+                if(e.EmployeeRoles == "HR")
+                {
+                    HrRole hR = new HrRole();
+                    hR.EmployeeID = e.Id ;
+                    hr.InsertHR(hR);
+                }
+                else if(e.EmployeeRoles == "PM")
+                {
+                    ProjectMangerRole projectManger = new ProjectMangerRole();
+                    projectManger.EmployeeID = e.Id;
+                    pr.InsertPM(projectManger);
+                }
+                userManager.AddToRole(e.Id, e.EmployeeRoles);
                 return true;
             }
             return false;
@@ -92,6 +109,19 @@ namespace LeaveManagement.Repository
         public bool UpdateEmpolyeeDetails(Employee e)
         {
             Employee employee = userManager.FindById(e.Id);
+            employee.EmployeeName = e.EmployeeName;
+            employee.DateOfBirth = e.DateOfBirth;
+            employee.Phone = e.Phone;
+            employee.Address = e.Address;
+            IdentityResult result = userManager.Update(employee);
+            return result.Succeeded;
+        }
+        public bool UpdateEmpolyeeDetailsByHR(Employee e)
+        {
+            Employee employee = userManager.FindById(e.Id);
+            employee.Email = e.Email;
+            employee.ImageUrl = e.ImageUrl;
+            employee.EmployeeRoles = e.EmployeeRoles;
             employee.EmployeeName = e.EmployeeName;
             employee.DateOfBirth = e.DateOfBirth;
             employee.Phone = e.Phone;

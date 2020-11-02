@@ -20,5 +20,6 @@ namespace LeaveManagement.ViewModel.Employee
         [Required]
         public string EmployeeName { get; set; }
         public string Phone { get; set; }
+        public string EmployeeRoles { get; set; }
     }
 }

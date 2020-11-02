@@ -1,0 +1,91 @@
+﻿@model LeaveManagement.ViewModel.Leave.LeaveViewModel
+
+@{
+    ViewBag.Title = "Status";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Status</h2>
+<table class="table">
+    <tr>
+        <th>Leave ID</th>
+        <td>@Model.LeaveID</td>
+    </tr>
+    <tr>
+        <th>Employee Name</th>
+        <td>@Model.EmployeeName</td>
+    </tr>
+    <tr>
+        <th>Number of Days</th>
+        <td>@Model.NoOfDays</td>
+    </tr>
+    <tr>
+        <th>Start date</th>
+        <td>@Model.StartDate.Value.ToString("MMM dd, yyyy")</td>
+    </tr>
+    <tr>
+        <th>End date</th>
+        <td>@Model.EndDate.Value.ToString("MMM dd, yyyy")</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>@Model.LeaveDescription</td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td><a data-toggle="modal" data-target="#StatusModal" t>@Model.LeaveStatus</a></td>
+    </tr>
+    @if (Model.Remarks != null)
+    {
+        <tr>
+            <th>Remarks</th>
+            <td>@Model.Remarks</td>
+        </tr>
+    }
+
+</table>
+<div class="modal fade" id="StatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/PM/Leave/Status" method="post">
+                    <div class="form-group mr-3">
+                        <input type="hidden" class="form-control" name="LeaveID" value="@Model.LeaveID" />
+                        <label for="status">Status</label>
+                        <select type="text" class="form-control" id="txtRoles" name="LeaveStatus">
+                            @foreach (var item in new Dictionary<string, string>() { { "Pending", "Pending" }, { "Approved", "Approved" }, { "Rejected", "Rejected" } })
+                            {
+                                if (item.Key == Model.LeaveStatus)
+                                {
+                                    <option value="@item.Key" selected="selected">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="form-row mr-3">
+                        <label for="remark">Address</label>
+                        <textarea class="form-control" id="remark" placeholder="Remark" name="Remarks">@Model.Remarks</textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary align-items-center mt-4">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="PM/Leave/show" class="nav-link">Back to Leaves</a>
+

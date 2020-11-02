@@ -14,6 +14,7 @@ namespace LeaveManagment.ServiceLayer
     {
         int InsertLeave(RequestLeaveViewModel rlvm);
         List<LeaveViewModel> GetLeaveByEmployeeID(string EmpID);
+        List<LeaveViewModel> GetLeaveByPmID(int PmID);
         LeaveViewModel GetLeaveByID(int LeaveID);
         void UpdateLeaveStatus(UpdateLeaveStatusViewModel ulsvm);
     }
@@ -27,16 +28,25 @@ namespace LeaveManagment.ServiceLayer
         public List<LeaveViewModel> GetLeaveByEmployeeID(string EmpID)
         {
             List<Leave> leaves = lr.GetLeavesByEmpolyeeID(EmpID);
-            List<LeaveViewModel> lvm = null;
+            List<LeaveViewModel> lvms = null;
             if (leaves != null)
             {
-                var config = new MapperConfiguration(cfg => { cfg.CreateMap<Leave, LeaveViewModel>(); cfg.IgnoreUnmapped(); });
-                IMapper mapper = config.CreateMapper();
-                lvm = mapper.Map<List<Leave>,List<LeaveViewModel>>(leaves);
+                foreach (var item in leaves)
+                    lvms.Add(new LeaveViewModel() { LeaveID = item.LeaveID, NoOfDays = item.NoOfDays, StartDate = item.StartDate, EndDate = item.EndDate, LeaveDescription = item.LeaveDescription, LeaveStatus = item.LeaveStatus, ProjectManagerName = item.ProjectMangerRole.Employee.EmployeeName, Remarks = item.Remarks, EmployeeName = item.Employee.EmployeeName });
             }
-            return lvm;
+            return lvms;
         }
-
+        public List<LeaveViewModel> GetLeaveByPmID(int PmID)
+        {
+            List<Leave> leaves = lr.GetLeavesByPmID(PmID);
+            List<LeaveViewModel> lvms = null;
+            if (leaves != null)
+            {
+                foreach (var item in leaves)
+                    lvms.Add(new LeaveViewModel() { LeaveID = item.LeaveID, NoOfDays = item.NoOfDays, StartDate = item.StartDate, EndDate = item.EndDate, LeaveDescription = item.LeaveDescription, LeaveStatus = item.LeaveStatus, ProjectManagerName = item.ProjectMangerRole.Employee.EmployeeName, Remarks = item.Remarks, EmployeeName = item.Employee.EmployeeName });
+            }
+            return lvms;
+        }
         public LeaveViewModel GetLeaveByID(int LeaveID)
         {
             Leave l = lr.GetLeavesByID(LeaveID);
@@ -46,6 +56,7 @@ namespace LeaveManagment.ServiceLayer
                 var config = new MapperConfiguration(cfg => { cfg.CreateMap<Leave, LeaveViewModel>(); cfg.IgnoreUnmapped(); });
                 IMapper mapper = config.CreateMapper();
                 lvm = mapper.Map<Leave, LeaveViewModel>(l);
+                lvm.EmployeeName = l.Employee.EmployeeName;
             }
            return lvm;
         }

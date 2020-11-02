@@ -1,4 +1,5 @@
 ﻿
+using LeaveManagement.Filters;
 using LeaveManagement.ViewModel.Employee;
 using LeaveManagment.ServiceLayer;
 using Microsoft.AspNet.Identity;
@@ -28,28 +29,7 @@ namespace LeaveManagement.Controllers
         {
             return View();
         }
-        [ActionName("Register")]
-        public ActionResult RegisterEmployee()
-        {
-            return View();
-        }
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        [ActionName("Register")]
-        public ActionResult RegisterEmployee(RegisterViewModel rvm)
-        {
-            if (ModelState.IsValid)
-            {
-                this.es.InsertEmployee(rvm);
-                return RedirectToAction("Profile", "Account");
-
-            }
-            else
-            {
-                ModelState.AddModelError("x", "Invalid data");
-                return View();
-            }
-        }
+        [MyAuthenticationFilter]
         [ActionName("Profile")]
         public ActionResult MyProfile()
         {
@@ -58,7 +38,7 @@ namespace LeaveManagement.Controllers
             return View(evm);
         }
         [ActionName("Update")]
-        public ActionResult UpdateEmplyee(string id )
+        public ActionResult UpdateEmployee(string id )
         {
             EmployeeViewModel evm = this.es.GetEmployeeByID(id);
             UpdateEmployeeViewModel uevm = new UpdateEmployeeViewModel() { Id = evm.Id, EmployeeName = evm.EmployeeName, Address = evm.Address, DateOfBirth = evm.DateOfBirth, Phone = evm.Phone, Email = evm.Email };

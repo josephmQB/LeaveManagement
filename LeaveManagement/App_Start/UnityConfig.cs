@@ -40,6 +40,7 @@ namespace LeaveManagement
         {
             container.RegisterType<IEmployeeService, EmployeeService>();
             container.RegisterType<ILeaveService, LeaveService>();
+            container.RegisterType<IProjectManagerRoleService, ProjectManagerRoleService>();
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();

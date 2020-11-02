@@ -27,12 +27,22 @@ namespace LeaveManagement
             var userManager = new ApplicationUserManager(appUserStore);
 
 
-            //Create Admin Role
             if (!roleManager.RoleExists("Employee"))
             {
-
                 var role = new IdentityRole();
                 role.Name = "Employee";
+                roleManager.Create(role);
+            }
+            if (!roleManager.RoleExists("PM"))
+            {
+                var role = new IdentityRole();
+                role.Name = "PM";
+                roleManager.Create(role);
+            }
+            if (!roleManager.RoleExists("HR"))
+            {
+                var role = new IdentityRole();
+                role.Name = "HR";
                 roleManager.Create(role);
             }
         }

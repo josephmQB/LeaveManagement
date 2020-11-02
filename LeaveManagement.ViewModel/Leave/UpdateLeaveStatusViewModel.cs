@@ -13,5 +13,7 @@ namespace LeaveManagement.ViewModel.Leave
         public int LeaveID { get; set; }
         [Required]
         public string LeaveStatus { get; set; }
+        [Required]
+        public string Remarks { get; set; }
     }
 }

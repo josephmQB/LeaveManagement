@@ -11,7 +11,7 @@
         <div class="card col-sm-6">
             <h1 class="card-title text-center mt-4">Registration</h1>
             <div class="card-body">
-                <form action="/account/register" method="post" enctype="multipart/form-data">
+                <form action="/HR/employee/register" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     <div class="form-group mr-3">
                         <label for="txtName">Name</label>
@@ -38,6 +38,15 @@
                             <input type="password" class="form-control" id="txtConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
                             @Html.ValidationMessageFor(temp => temp.ConfirmPassword)
                         </div>
+                    </div>
+                    <div class="form-row mr-3">
+                        <label for="txtRoles">Employee Role</label>
+                        <select type="text" class="form-control" id="txtRoles" name="EmployeeRoles">
+                            <option value="">Please select</option>
+                            <option value="Employee">Employee</option>
+                            <option value="PM">Project Manager</option>
+                            <option value="HR">HR</option>
+                        </select>
                     </div>
                     @Html.ValidationSummary()
                     <div class="form-row justify-content-center align-items-center">

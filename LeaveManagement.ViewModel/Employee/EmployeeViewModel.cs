@@ -14,6 +14,7 @@ namespace LeaveManagement.ViewModel.Employee
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public string EmployeeRoles { get; set; }
         public string ImageUrl { get; set; }
     }
 }

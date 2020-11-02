@@ -1,0 +1,83 @@
+﻿@model LeaveManagement.ViewModel.Employee.UpdateEmployeeByHRViewModel
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="my-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card col-sm-6">
+            <h1 class="card-title text-center mt-4">Edit Employee</h1>
+            <div class="card-body">
+                <form action="/HR/account/update" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group mr-3">
+                        <label for="txtName">Name</label>
+                        <input type="hidden" class="form-control" name="Id" value="@Model.Id" />
+                        <input type="text" class="form-control" id="txtName" placeholder="Enter name" name="EmployeeName" pattern="^[a-zA-Z ]*$" autofocus="autofocus" value="@Model.EmployeeName" />
+                        @Html.ValidationMessageFor(temp => temp.EmployeeName)
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="txtEmail">Email</label>
+                        <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email" value="@Model.Email" />
+                        @Html.ValidationMessageFor(temp => temp.Email)
+                    </div>
+                    <div class="form-row mr-3">
+                        <label for="txtRoles">Employee Role</label>
+                        <select type="text" class="form-control" id="txtRoles" name="EmployeeRoles">
+                            @foreach (var item in new Dictionary<string, string>() { { "Employee", "Employee" }, { "PM", "Project Manager" }, { "HR", "HR" } })
+                            {
+                                if (item.Key == Model.EmployeeRoles)
+                                {
+                                    <option value="@item.Key" selected="selected">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="txtDateOfBirth">Date Of Birth</label>
+                            @if (Model.DateOfBirth != null)
+                            {
+                                <input type="date" class="form-control" id="txtDOB" placeholder="Date of Birth" name="DateOfBirth" value="@Model.DateOfBirth.Value.ToString("yyyy-MM-dd")" />
+                                @Html.ValidationMessageFor(temp => temp.DateOfBirth)
+                            }
+                            else
+                            {
+                                <input type="date" class="form-control" id="txtDOB" placeholder="Date of Birth" name="DateOfBirth" />
+                                @Html.ValidationMessageFor(temp => temp.DateOfBirth)
+                            }
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="txtMobile">Mobile</label>
+                            <input type="text" class="form-control" id="txtMobile" placeholder="Mobile" name="Phone" pattern="^[789]\d{9}$" value="@Model.Phone" />
+                            @Html.ValidationMessageFor(temp => temp.Phone)
+                        </div>
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="txtAddress">Address</label>
+                        <textarea class="form-control" id="txtAddress" placeholder="Address" name="Address">@Model.Address</textarea>
+                        @Html.ValidationMessageFor(temp => temp.Address)
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="Image">User Image</label>
+                        @{Html.RenderPartial("UserImgUpload"); }
+                    </div>
+                    @Html.ValidationSummary()
+                    <div class="form-row justify-content-center align-items-center">
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary align-items-center mt-4">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

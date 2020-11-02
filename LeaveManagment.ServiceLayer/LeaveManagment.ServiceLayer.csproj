@@ -105,6 +105,7 @@
     <Compile Include="EmployeeService.cs" />
     <Compile Include="LeaveService.cs" />
     <Compile Include="MapperExtensions.cs" />
+    <Compile Include="ProjectManagerRoleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

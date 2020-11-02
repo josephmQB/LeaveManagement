@@ -18,9 +18,14 @@ namespace LeaveManagement.DomainModel
         public int NoOfDays { get; set; }
         public string LeaveStatus { get; set; }
         public string LeaveDescription { get; set; }
+        public string Remarks { get; set; }
         public string EmployeeID { get; set; }
+        public int ProjectManagerID { get; set; }
 
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }
+        [ForeignKey("ProjectManagerID")]
+        public virtual ProjectMangerRole ProjectMangerRole  { get; set; }
+
     }
 }

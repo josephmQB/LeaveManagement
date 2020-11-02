@@ -85,18 +85,19 @@
     <Compile Include="Employee\LoginViewModel.cs" />
     <Compile Include="Employee\RegisterViewModel.cs" />
     <Compile Include="Employee\UpdateEmployeeViewModel.cs" />
+    <Compile Include="Employee\UpdateEmployeeByHRViewModel.cs" />
     <Compile Include="Employee\UpdateImageUrlViewModel.cs" />
     <Compile Include="Employee\UpdatePasswordViewModel.cs" />
     <Compile Include="Leave\LeaveViewModel.cs" />
     <Compile Include="Leave\RequestLeaveViewModel.cs" />
     <Compile Include="Leave\UpdateLeaveStatusViewModel.cs" />
+    <Compile Include="PM\PmViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -15,5 +15,7 @@ namespace LeaveManagement.DomainModel
 
         }
         public DbSet<Leave> Leaves { get; set; }
+        public DbSet<ProjectMangerRole> ProjectMangerRoles { get; set; }
+        public DbSet<HrRole> HrRoles { get; set; }
     }
 }

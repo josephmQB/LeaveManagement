@@ -84,6 +84,7 @@
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="ApplicationUserStore.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="HrRole.cs" />
     <Compile Include="Leave.cs" />
     <Compile Include="LeaveManagementDbContext.cs" />
     <Compile Include="Migrations\202010290552355_Initial.cs" />
@@ -98,7 +99,20 @@
     <Compile Include="Migrations\202010310624382_LeaveTable.designer.cs">
       <DependentUpon>202010310624382_LeaveTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010311312122_Roles.cs" />
+    <Compile Include="Migrations\202010311312122_Roles.designer.cs">
+      <DependentUpon>202010311312122_Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010311313557_foreignKey.cs" />
+    <Compile Include="Migrations\202010311313557_foreignKey.designer.cs">
+      <DependentUpon>202010311313557_foreignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010311416543_RemarksColumn.cs" />
+    <Compile Include="Migrations\202010311416543_RemarksColumn.designer.cs">
+      <DependentUpon>202010311416543_RemarksColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ProjectMangerRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +128,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010310624382_LeaveTable.resx">
       <DependentUpon>202010310624382_LeaveTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010311312122_Roles.resx">
+      <DependentUpon>202010311312122_Roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010311313557_foreignKey.resx">
+      <DependentUpon>202010311313557_foreignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010311416543_RemarksColumn.resx">
+      <DependentUpon>202010311416543_RemarksColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
