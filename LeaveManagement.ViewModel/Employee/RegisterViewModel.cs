@@ -21,5 +21,6 @@ namespace LeaveManagement.ViewModel.Employee
         public string EmployeeName { get; set; }
         public string Phone { get; set; }
         public string EmployeeRoles { get; set; }
+        public bool IsSpecialPermission { get; set; }
     }
 }

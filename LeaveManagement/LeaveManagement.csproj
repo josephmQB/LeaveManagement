@@ -199,6 +199,8 @@
     <Content Include="Areas\PM\Views\Leave\Status.cshtml" />
     <Content Include="Areas\PM\Views\Leave\Show.cshtml" />
     <Content Include="Areas\Employee\Views\Leave\Show.cshtml" />
+    <Content Include="Areas\HR\Views\Leave\Status.cshtml" />
+    <Content Include="Areas\HR\Views\Leave\Show.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -290,6 +292,7 @@
     <Compile Include="Areas\Employee\Controllers\LeaveController.cs" />
     <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
     <Compile Include="Areas\HR\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\HR\Controllers\LeaveController.cs" />
     <Compile Include="Areas\HR\HRAreaRegistration.cs" />
     <Compile Include="Areas\PM\Controllers\LeaveController.cs" />
     <Compile Include="Areas\PM\PMAreaRegistration.cs" />
@@ -299,6 +302,7 @@
     <Compile Include="Filters\HrAuthorization.cs" />
     <Compile Include="Filters\MyAuthenticationFilter.cs" />
     <Compile Include="Filters\PmAuthorization.cs" />
+    <Compile Include="Filters\SpecialPermissionAuthorization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

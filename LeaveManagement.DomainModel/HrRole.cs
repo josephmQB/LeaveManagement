@@ -13,6 +13,7 @@ namespace LeaveManagement.DomainModel
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HrID { get; set; }
+        public bool IsSpecialPermission { get; set; }
         public string EmployeeID { get; set; }
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }

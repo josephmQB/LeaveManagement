@@ -88,6 +88,7 @@
     <Compile Include="Employee\UpdateEmployeeByHRViewModel.cs" />
     <Compile Include="Employee\UpdateImageUrlViewModel.cs" />
     <Compile Include="Employee\UpdatePasswordViewModel.cs" />
+    <Compile Include="HR\HRVeiwModel.cs" />
     <Compile Include="Leave\LeaveViewModel.cs" />
     <Compile Include="Leave\RequestLeaveViewModel.cs" />
     <Compile Include="Leave\UpdateLeaveStatusViewModel.cs" />

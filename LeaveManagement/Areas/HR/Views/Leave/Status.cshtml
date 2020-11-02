@@ -32,6 +32,10 @@
         <td>@Model.LeaveDescription</td>
     </tr>
     <tr>
+        <th>Project Manager</th>
+        <td>@Model.ProjectManagerName</td>
+    </tr>
+    <tr>
         <th>Status</th>
         <td><a data-toggle="modal" data-target="#StatusModal" t>@Model.LeaveStatus</a></td>
     </tr>
@@ -54,7 +58,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/PM/Leave/Status" method="post">
+                <form action="/HR/Leave/Status" method="post">
                     <div class="form-group mr-3">
                         <input type="hidden" class="form-control" name="LeaveID" value="@Model.LeaveID" />
                         <label for="status">Status</label>
@@ -87,5 +91,5 @@
         </div>
     </div>
 </div>
-<a href="/PM/Leave/show" class="nav-link">Back to Leaves</a>
+<a href="/HR/Leave/show" class="nav-link">Back to Leaves</a>
 

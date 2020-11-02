@@ -12,6 +12,7 @@ namespace LeaveManagement.Repository
         void InsertLeave(Leave l);
         Leave GetLeavesByID(int LeaveID);
         List<Leave> GetLeavesByEmpolyeeID(string EmpID);
+        List<Leave> GetLeaves();
         List<Leave> GetLeavesByPmID(int PmID);
         void UpdateLeaveStatus(Leave l);
         int GetLastestLeaveId();
@@ -34,7 +35,11 @@ namespace LeaveManagement.Repository
             List<Leave> leave = db.Leaves.Where(temp => temp.ProjectManagerID == PmID).ToList();
             return leave;
         }
-
+        public List<Leave> GetLeaves()
+        {
+            List<Leave> leave = db.Leaves.Select(temp => temp).ToList();
+            return leave;
+        }
         public Leave GetLeavesByID(int LeaveID)
         {
             Leave leave = db.Leaves.Where(temp => temp.LeaveID == LeaveID).FirstOrDefault();

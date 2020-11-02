@@ -14,6 +14,7 @@ namespace LeaveManagment.ServiceLayer
     {
         int InsertLeave(RequestLeaveViewModel rlvm);
         List<LeaveViewModel> GetLeaveByEmployeeID(string EmpID);
+        List<LeaveViewModel> GetLeaves();
         List<LeaveViewModel> GetLeaveByPmID(int PmID);
         LeaveViewModel GetLeaveByID(int LeaveID);
         void UpdateLeaveStatus(UpdateLeaveStatusViewModel ulsvm);
@@ -28,6 +29,17 @@ namespace LeaveManagment.ServiceLayer
         public List<LeaveViewModel> GetLeaveByEmployeeID(string EmpID)
         {
             List<Leave> leaves = lr.GetLeavesByEmpolyeeID(EmpID);
+            List<LeaveViewModel> lvms = null;
+            if (leaves != null)
+            {
+                foreach (var item in leaves)
+                    lvms.Add(new LeaveViewModel() { LeaveID = item.LeaveID, NoOfDays = item.NoOfDays, StartDate = item.StartDate, EndDate = item.EndDate, LeaveDescription = item.LeaveDescription, LeaveStatus = item.LeaveStatus, ProjectManagerName = item.ProjectMangerRole.Employee.EmployeeName, Remarks = item.Remarks, EmployeeName = item.Employee.EmployeeName });
+            }
+            return lvms;
+        }
+        public List<LeaveViewModel> GetLeaves()
+        {
+            List<Leave> leaves = lr.GetLeaves();
             List<LeaveViewModel> lvms = null;
             if (leaves != null)
             {

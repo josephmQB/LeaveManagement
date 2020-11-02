@@ -111,6 +111,10 @@
     <Compile Include="Migrations\202010311416543_RemarksColumn.designer.cs">
       <DependentUpon>202010311416543_RemarksColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011020812468_IsSpecialPermission.cs" />
+    <Compile Include="Migrations\202011020812468_IsSpecialPermission.designer.cs">
+      <DependentUpon>202011020812468_IsSpecialPermission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProjectMangerRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010311416543_RemarksColumn.resx">
       <DependentUpon>202010311416543_RemarksColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011020812468_IsSpecialPermission.resx">
+      <DependentUpon>202011020812468_IsSpecialPermission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

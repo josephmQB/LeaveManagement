@@ -29,9 +29,13 @@ namespace LeaveManagment.ServiceLayer
     public class EmployeeService : IEmployeeService
     {
         IEmployeeRepository er;
+        IHrRoleRepository hr;
+        IProjectManagerRoleRepository pr;
         public EmployeeService()
         {
             er = new EmployeeRepository();
+            hr = new HrRoleRepository();
+            pr = new ProjectManagerRoleRepository();
         }
 
         public void DeleteEmployee(string ID)
@@ -90,6 +94,22 @@ namespace LeaveManagment.ServiceLayer
             e.UserName = rvm.Email;
             e.PasswordHash = Crypto.HashPassword(rvm.Password);
             var result = er.InsertEmployee(e);
+            if(result)
+            {
+                if (e.EmployeeRoles == "HR")
+                {
+                    HrRole hR = new HrRole();
+                    hR.EmployeeID = e.Id;
+                    hR.IsSpecialPermission = rvm.IsSpecialPermission;
+                    hr.InsertHR(hR);
+                }
+                else if (e.EmployeeRoles == "PM")
+                {
+                    ProjectMangerRole projectManger = new ProjectMangerRole();
+                    projectManger.EmployeeID = e.Id;
+                    pr.InsertPM(projectManger);
+                }
+            }
         }
 
         public void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm)

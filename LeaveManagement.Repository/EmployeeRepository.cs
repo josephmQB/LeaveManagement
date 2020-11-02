@@ -32,15 +32,13 @@ namespace LeaveManagement.Repository
         LeaveManagementDbContext db;
         ApplicationUserStore userStore;
         ApplicationUserManager userManager;
-        IHrRoleRepository hr;
-        IProjectManagerRoleRepository pr;
+        
         public EmployeeRepository()
         {
             db = new LeaveManagementDbContext();
             userStore = new ApplicationUserStore(db);
             userManager = new ApplicationUserManager(userStore);
-            hr = new HrRoleRepository();
-            pr = new ProjectManagerRoleRepository();
+            
         }
 
         public List<Employee> GetEmployeesByRoles(string role)
@@ -95,18 +93,6 @@ namespace LeaveManagement.Repository
             IdentityResult result = userManager.Create(e);
             if (result.Succeeded)
             {
-                if(e.EmployeeRoles == "HR")
-                {
-                    HrRole hR = new HrRole();
-                    hR.EmployeeID = e.Id ;
-                    hr.InsertHR(hR);
-                }
-                else if(e.EmployeeRoles == "PM")
-                {
-                    ProjectMangerRole projectManger = new ProjectMangerRole();
-                    projectManger.EmployeeID = e.Id;
-                    pr.InsertPM(projectManger);
-                }
                 userManager.AddToRole(e.Id, e.EmployeeRoles);
                 return true;
             }
