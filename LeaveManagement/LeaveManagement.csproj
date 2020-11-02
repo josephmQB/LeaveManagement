@@ -294,6 +294,7 @@
     <Compile Include="Areas\PM\Controllers\LeaveController.cs" />
     <Compile Include="Areas\PM\PMAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\EmployeeAuthorization.cs" />
     <Compile Include="Filters\HrAuthorization.cs" />
     <Compile Include="Filters\MyAuthenticationFilter.cs" />
@@ -325,6 +326,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\Update.cshtml" />
+    <Content Include="Views\Home\SearchByRole.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

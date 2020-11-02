@@ -18,6 +18,7 @@ namespace LeaveManagement.Repository
         bool UpdateEmpolyeeDetails(Employee e);
         bool DeleteEmployee(string id);
         List<Employee> GetEmployees();
+        List<Employee> GetEmployeesByRoles(string role);
         Employee GetEmployeeById(string id);
         Employee GetEmployeeByEmail(string Email);
         void Login(IAuthenticationManager authenticationManager, string Email, string Password);
@@ -41,7 +42,13 @@ namespace LeaveManagement.Repository
             hr = new HrRoleRepository();
             pr = new ProjectManagerRoleRepository();
         }
-      
+
+        public List<Employee> GetEmployeesByRoles(string role)
+        {
+            List<Employee> employees = userManager.Users.Where(temp => temp.EmployeeRoles == role).ToList();
+            return employees;
+        }
+
         public bool UpdatePassword(string Id, string CurrentPassword, string NewPassword)
         {
             IdentityResult result = userManager.ChangePassword(Id, CurrentPassword, NewPassword);

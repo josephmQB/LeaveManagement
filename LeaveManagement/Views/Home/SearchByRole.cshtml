@@ -1,0 +1,43 @@
+﻿@model List<LeaveManagement.ViewModel.Employee.EmployeeViewModel>
+
+@{
+    ViewBag.Title = "SearchByRole";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Employees</h2>
+<a href="/HR/Employee/register" class="btn btn-outline-success ">Register New Employee</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Image</th>
+            <th>Employee Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="data:image;base64,@item.ImageUrl" width="100" /></td>
+                <td>@item.EmployeeName</td>
+                <td>@item.Email</td>
+                <td>@item.EmployeeRoles</td>
+                <td>@item.DateOfBirth.Value.ToString("MMM dd, yyyy")</td>
+                <td>@item.Address</td>
+                <td>@item.Phone</td>
+                <td>
+                    @*<a href="/products/details/@item.ProductID" class="nav-link d-sm-inline-block">Details</a>*@
+                    @*<a href="/HR/Emplotee/Update/@item.Id" class="nav-link d-sm-inline-block">Edit</a>
+                    <a href="/HR/Emplotee/Delete/@item.Id" class="nav-link d-sm-inline-block">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

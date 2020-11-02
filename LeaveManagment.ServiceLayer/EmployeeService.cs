@@ -18,6 +18,7 @@ namespace LeaveManagment.ServiceLayer
         void UpdateEmployeeDetails(UpdateEmployeeViewModel uevm);
         void DeleteEmployee(String ID);
         List<EmployeeViewModel> GetEmployees();
+        List<EmployeeViewModel> GetEmployeesByRoles(string role);
         EmployeeViewModel GetEmployeeByEmail(string Email);
         EmployeeViewModel GetEmployeeByID(String ID);
         void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm);
@@ -38,6 +39,14 @@ namespace LeaveManagment.ServiceLayer
             var result = er.DeleteEmployee(ID);
         }
 
+        public List<EmployeeViewModel> GetEmployeesByRoles(string role)
+        {
+            List<Employee> employees = er.GetEmployeesByRoles(role);
+            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Employee, EmployeeViewModel>(); cfg.IgnoreUnmapped(); });
+            IMapper mapper = config.CreateMapper();
+            List<EmployeeViewModel> evms = mapper.Map<List<Employee>, List<EmployeeViewModel>>(employees);
+            return evms;
+        }
         public List<EmployeeViewModel> GetEmployees()
         {
             List<Employee> employees = er.GetEmployees();
