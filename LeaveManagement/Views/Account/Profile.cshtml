@@ -30,32 +30,12 @@
         left: 100px;
     }
 </style>
-<form class="form-inline my-2 my-lg-0" action="/home/SearchByRole">
-    <label for="SearchByRoles" class="mr-1">Search by Roles</label>
-    <select type="text" class="form-control" id="SearchByRoles" name="Role">
-        <option value="">Please select</option>
-        <option value="Employee">Employee</option>
-        <option value="PM">Project Manager</option>
-        <option value="HR">HR</option>
-    </select>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form>
-<form class="form-inline my-2 my-lg-0" action="/home/SearchByName">
-    <label for="SearchByNames" class="mr-1">Search by Names</label>
-    <select type="text" class="form-control" id="SearchByNames" name="Id">
-        <option value="">Please select</option>
-        @foreach (var item in ViewBag.Employee)
-        {
-            <option value="@item.Id">@item.EmployeeName</option>
-        }
-    </select>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form>
 <div class="my-5">
     <div class="row justify-content-center align-items-center">
         <div class="card col-sm-6">
             <div class="row justify-content-end">
                 <a href="/account/update?Id=@Model.Id" class="btn btn-outline-info text-decoration-none"><i class="fa fa-pencil" aria-hidden="true"></i>Edit Profile</a>
+                <a href="/account/change?Id=@Model.Id" class="btn btn-outline-info text-decoration-none"><i class="fa fa-pencil" aria-hidden="true"></i>Change Password</a>
             </div>
             <div class="card-body">
                 <div class="row justify-content-center">

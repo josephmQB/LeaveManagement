@@ -21,9 +21,9 @@ namespace LeaveManagement.Repository
         List<Employee> GetEmployeesByRoles(string role);
         Employee GetEmployeeById(string id);
         Employee GetEmployeeByEmail(string Email);
-        void Login(IAuthenticationManager authenticationManager, string Email, string Password);
+        bool Login(IAuthenticationManager authenticationManager, string Email, string Password);
         bool UpdatePassword(string Id, string CurrentPassword, string NewPassword);
-        void UpdateImageUrl(string Id, string ImageUrl);
+        bool UpdateImageUrl(string Id, string ImageUrl);
         bool UpdateEmpolyeeDetailsByHR(Employee e);
 
     }
@@ -58,14 +58,16 @@ namespace LeaveManagement.Repository
             return e;
         }
 
-        public void Login(IAuthenticationManager authenticationManager, string Email, string Password)
+        public bool Login(IAuthenticationManager authenticationManager, string Email, string Password)
         {
             Employee e = userManager.FindByEmail(Email);
             if (userManager.CheckPassword(e, Password))
             {
                 var userIdentity = userManager.CreateIdentity(e,DefaultAuthenticationTypes.ApplicationCookie);
                 authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
+                return true;
             }
+            return false;
         }
 
         public bool DeleteEmployee(string id)
@@ -122,11 +124,14 @@ namespace LeaveManagement.Repository
             IdentityResult result = userManager.Update(employee);
             return result.Succeeded;
         }
-        public void UpdateImageUrl(string Id, string ImageUrl)
+        public bool UpdateImageUrl(string Id, string ImageUrl)
         {
             var e = userManager.FindById(Id);
             e.ImageUrl = ImageUrl;
-            db.SaveChanges();
+            var entries = db.SaveChanges();
+            if (entries != 0)
+                return true;
+            return false;
         }
 
     }

@@ -17,24 +17,28 @@
             <th>ProjectManager</th>
             <th>Status</th>
             <th>Remarks </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model != null)
         {
-        <tr>
-            <td>@item.EmployeeName</td>
-            <td>@item.NoOfDays</td>
-            <td>@item.StartDate.Value.ToString("MMM dd, yyyy")</td>
-            <td>@item.EndDate.Value.ToString("MMM dd, yyyy")</td>
-            <td>@item.LeaveDescription</td>
-            <td>@item.ProjectManagerName</td>
-            <td>@item.LeaveStatus</td>
-            <td>@item.Remarks</td>
-            <td>
-                <a href="/HR/Leave/status/@item.LeaveID" class="nav-link d-sm-inline-block">Details</a>
-            </td>
-        </tr>
+            foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.EmployeeName</td>
+                <td>@item.NoOfDays</td>
+                <td>@item.StartDate.Value.ToString("MMM dd, yyyy")</td>
+                <td>@item.EndDate.Value.ToString("MMM dd, yyyy")</td>
+                <td>@item.LeaveDescription</td>
+                <td>@item.ProjectManagerName</td>
+                <td>@item.LeaveStatus</td>
+                <td>@item.Remarks</td>
+                <td>
+                    <a href="/HR/Leave/status?LeaveId=@item.LeaveID" class="nav-link d-sm-inline-block">Details</a>
+                </td>
+            </tr>
+            }
         }
     </tbody>
 </table>

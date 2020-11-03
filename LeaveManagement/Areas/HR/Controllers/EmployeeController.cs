@@ -1,4 +1,5 @@
-﻿using LeaveManagement.ViewModel.Employee;
+﻿using LeaveManagement.Filters;
+using LeaveManagement.ViewModel.Employee;
 using LeaveManagment.ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LeaveManagement.Areas.HR.Controllers
 {
+    [HrAuthorization]
     public class EmployeeController : Controller
     {
         // GET: HR/Employee
@@ -33,7 +35,15 @@ namespace LeaveManagement.Areas.HR.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.es.InsertEmployee(rvm);
+                var result = this.es.InsertEmployee(rvm);
+                if (result)
+                {
+                    var evms = this.es.GetEmployees();
+                    Session["Employee"] = evms;
+                    ViewBag.Registered = true;
+                }
+                else
+                    ViewBag.NotRegistered = true;
                 return RedirectToAction("Show");
 
             }
@@ -53,8 +63,16 @@ namespace LeaveManagement.Areas.HR.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteEmployee(EmployeeViewModel evm)
         {
-            this.es.DeleteEmployee(evm.Id);
-            return View(evm);
+            var result = this.es.DeleteEmployee(evm.Id);
+            if (result)
+            {
+                ViewBag.Deleted = true;
+                var evms = this.es.GetEmployees();
+                Session["Employee"] = evms;
+            }
+            else
+                ViewBag.NotDeleted = true;
+            return RedirectToAction("Show");
         }
         [ActionName("Update")]
         public ActionResult UpdateEmployee(string id)
@@ -78,7 +96,11 @@ namespace LeaveManagement.Areas.HR.Controllers
                     var base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
                     uevm.ImageUrl = base64String;
                 }
-                this.es.UpdateEmployeeDetailsByHR(uevm);
+                var result = this.es.UpdateEmployeeDetailsByHR(uevm);
+                if (result)
+                    ViewBag.Updated = true;
+                else
+                    ViewBag.NotUpdated = true;
                 return RedirectToAction("Show");
             }
             else

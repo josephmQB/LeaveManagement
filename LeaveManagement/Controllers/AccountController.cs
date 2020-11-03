@@ -16,14 +16,16 @@ namespace LeaveManagement.Controllers
     {
         // GET: Account
         IEmployeeService es;
+        IHrRoleService hs;
 
         public AccountController()
         {
                 
         }
-        public AccountController(IEmployeeService es)
+        public AccountController(IEmployeeService es, IHrRoleService hs)
         {
             this.es = es;
+            this.hs = hs;
         }
         public ActionResult Index()
         {
@@ -33,9 +35,18 @@ namespace LeaveManagement.Controllers
         [ActionName("Profile")]
         public ActionResult MyProfile()
         {
+            
             var Id = User.Identity.GetUserId();
-            ViewBag.Emplyee = this.es.GetEmployees();
             EmployeeViewModel evm = this.es.GetEmployeeByID(Id);
+            Session["CurrentUserName"] = evm.EmployeeName;
+            Session["CurrentUserImage"] = evm.ImageUrl;
+            var evms = this.es.GetEmployees();
+            Session["Employee"] = evms;
+            if (evm.EmployeeRoles == "HR")
+            {
+                var hvm = this.hs.GetHRByEmployeeID(evm.Id);
+                Session["SpecialPermission"] = hvm.IsSpecialPermission;
+            }
             return View(evm);
         }
         [ActionName("Update")]
@@ -92,15 +103,56 @@ namespace LeaveManagement.Controllers
         public ActionResult Login(LoginViewModel lvm)
         {
            
-                var authenticationManager = HttpContext.GetOwinContext().Authentication;
-                this.es.Login(authenticationManager, lvm);
+            var authenticationManager = HttpContext.GetOwinContext().Authentication;
+            var result =  this.es.Login(authenticationManager, lvm);
+            if (result)
+            {
+                var evm = this.es.GetEmployeeByEmail(lvm.Email);
+                Session["CurrentUserName"] = evm.EmployeeName;
+                Session["CurrentUserImage"] = evm.ImageUrl;
+                var evms = this.es.GetEmployees();
+                Session["Employee"] = evms;
+                if(evm.EmployeeRoles =="HR")
+                {
+                    var hvm = this.hs.GetHRByEmployeeID(evm.Id);
+                    Session["SpecialPermission"] = hvm.IsSpecialPermission;
+                }
                 return RedirectToAction("Profile", "Account");
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Incorrect Email or Password");
+                return View(lvm);
+            }
         }
         public ActionResult Logout()
         {
             var authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
             return RedirectToAction("Login", "Account");
+        }
+        [ActionName("Change")]
+        public ActionResult ChangePassword(string id)
+        {
+            EmployeeViewModel evm = this.es.GetEmployeeByID(id);
+            UpdatePasswordViewModel upvm = new UpdatePasswordViewModel() { Id = evm.Id};
+            return View(upvm);
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        [ActionName("Change")]
+        public ActionResult ChangePassword( UpdatePasswordViewModel upvm)
+        {
+            if (ModelState.IsValid)
+            {
+                this.es.UpdatePassword(upvm);
+                return RedirectToAction("Profile", "Account");
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid data");
+                return View(upvm);
+            }
         }
     }
 }

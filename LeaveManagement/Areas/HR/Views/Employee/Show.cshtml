@@ -24,19 +24,119 @@
         @foreach (var item in Model)
         {
         <tr>
-            <td><img src="data:image;base64,@item.ImageUrl" width="100" /></td>
+            <td>
+                @if (item.ImageUrl != null)
+                {
+                    <img src="data:image/png;base64,@item.ImageUrl" width="60" />
+                }
+                else
+                {
+                    <img src="https://i.pinimg.com/originals/19/b8/d6/19b8d6e9b13eef23ec9c746968bb88b1.jpg" width="60" />
+                }
+            </td>
             <td>@item.EmployeeName</td>
             <td>@item.Email</td>
             <td>@item.EmployeeRoles</td>
-            <td>@item.DateOfBirth.Value.ToString("MMM dd, yyyy")</td>
-            <td>@item.Address</td>
+            @if (item.DateOfBirth != null)
+            {
+                <td>@item.DateOfBirth.Value.ToString("MMM dd, yyyy")</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @if (item.Address != null)
+            {
+                <td>@item.Address</td>
+            }
+            else
+            {
+                <td></td>
+            }
             <td>@item.Phone</td>
             <td>
                 @*<a href="/products/details/@item.ProductID" class="nav-link d-sm-inline-block">Details</a>*@
-                <a href="/HR/Emplotee/Update/@item.Id" class="nav-link d-sm-inline-block">Edit</a>
-                <a href="/HR/Emplotee/Delete/@item.Id" class="nav-link d-sm-inline-block">Delete</a>
+                <a href="/HR/Employee/Update/@item.Id" class="nav-link d-sm-inline-block">Edit</a>
+                <a href="/HR/Employee/Delete/@item.Id" class="nav-link d-sm-inline-block">Delete</a>
             </td>
         </tr>
         }
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        if (@ViewBag.Registered) {
+            $.bootstrapGrowl("Successfully Registered", {
+                type: 'success', // (null, 'info', 'danger', 'success')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+            @ViewBag.Registered = false;
+        }
+       if (@ViewBag.NotRegistered) {
+            $.bootstrapGrowl("Unable to Register", {
+                type: 'danger', // (null, 'info', 'danger', 'success')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+            @ViewBag.NotRegistered = false;
+        }
+        if (@ViewBag.Deleted) {
+            $.bootstrapGrowl("Successfully Deleted", {
+                type: 'success', // (null, 'info', 'danger', 'success')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+            @ViewBag.Deleted = false;
+        }
+       if (@ViewBag.NotDeleted) {
+            $.bootstrapGrowl("Unable to Delete", {
+                type: 'danger', // (null, 'info', 'danger', 'success')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+            @ViewBag.NotDeleted = false;
+        }
+        if (@ViewBag.Updated) {
+            $.bootstrapGrowl("Successfully Updated", {
+                type: 'success', // (null, 'info', 'danger', 'success')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+            @ViewBag.Updated = false;
+        }
+       if (@ViewBag.NotUpdated) {
+            $.bootstrapGrowl("Unable to Update", {
+                type: 'danger', // (null, 'info', 'danger', 'success')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+            @ViewBag.NotUpdated = false;
+        }
+
+    });
+</script>

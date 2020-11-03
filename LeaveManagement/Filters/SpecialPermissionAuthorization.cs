@@ -12,12 +12,16 @@ namespace LeaveManagement.Filters
     {
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            IHrRoleService hr = new HrRoleService();
-            var user = hr.GetHRByEmployeeID(filterContext.HttpContext.User.Identity.GetUserId());
-            var SpecialPermission = user.IsSpecialPermission;
-            if (filterContext.HttpContext.User.IsInRole("HR") == false && SpecialPermission == false)
+           
+            if (filterContext.HttpContext.User.IsInRole("HR") == false)
             {
-                filterContext.Result = new HttpUnauthorizedResult();
+                IHrRoleService hr = new HrRoleService();
+                var user = hr.GetHRByEmployeeID(filterContext.HttpContext.User.Identity.GetUserId());
+                var SpecialPermission = user.IsSpecialPermission;
+                if (SpecialPermission == false)
+                {
+                    filterContext.Result = new HttpUnauthorizedResult();
+                }
             }
         }
     }

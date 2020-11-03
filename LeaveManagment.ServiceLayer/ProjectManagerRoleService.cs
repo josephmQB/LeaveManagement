@@ -26,7 +26,7 @@ namespace LeaveManagment.ServiceLayer
         {
             ProjectMangerRole projectManger = pr.GetProjectMangerByEmployeeID(EmpID);
             PmViewModel pvm = null;
-            if(pvm != null)
+            if(projectManger != null)
             {
                 pvm = new PmViewModel() { PmID = projectManger.PmID, PmName = projectManger.Employee.EmployeeName };
             }
@@ -36,15 +36,16 @@ namespace LeaveManagment.ServiceLayer
         public List<PmViewModel> GetProjectManages()
         {
             List<ProjectMangerRole> projectMangers = pr.GetProjectMangers();
-            List<PmViewModel> pvms = null;
+            List<PmViewModel> pvms = new List<PmViewModel>();
             if(projectMangers != null)
             {
                 foreach (var item in projectMangers)
                 {
                     pvms.Add(new PmViewModel() { PmID = item.PmID, PmName = item.Employee.EmployeeName });
                 }
+                return pvms;
             }
-            return pvms;
+            return null;
         }
     }
 }

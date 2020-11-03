@@ -6,7 +6,6 @@
 }
 
 <h2>Employees</h2>
-<a href="/HR/Employee/register" class="btn btn-outline-success ">Register New Employee</a>
 <table class="table">
     <thead>
         <tr>
@@ -23,20 +22,43 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td><img src="data:image;base64,@item.ImageUrl" width="100" /></td>
-                <td>@item.EmployeeName</td>
-                <td>@item.Email</td>
-                <td>@item.EmployeeRoles</td>
+        <tr>
+            <td>
+                @if (item.ImageUrl != null)
+                {
+                    <img src="data:image/png;base64,@item.ImageUrl" width="60" />
+                }
+                else
+                {
+                    <img src="https://i.pinimg.com/originals/19/b8/d6/19b8d6e9b13eef23ec9c746968bb88b1.jpg" width="60" />
+                }
+            </td>
+            <td>@item.EmployeeName</td>
+            <td>@item.Email</td>
+            <td>@item.EmployeeRoles</td>
+            @if (item.DateOfBirth != null)
+            {
                 <td>@item.DateOfBirth.Value.ToString("MMM dd, yyyy")</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @if (item.Address != null)
+            {
                 <td>@item.Address</td>
-                <td>@item.Phone</td>
-                <td>
-                    @*<a href="/products/details/@item.ProductID" class="nav-link d-sm-inline-block">Details</a>*@
-                    @*<a href="/HR/Emplotee/Update/@item.Id" class="nav-link d-sm-inline-block">Edit</a>
-                    <a href="/HR/Emplotee/Delete/@item.Id" class="nav-link d-sm-inline-block">Delete</a>*@
-                </td>
-            </tr>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td>@item.Phone</td>
+            <td>
+                @*<a href="/products/details/@item.ProductID" class="nav-link d-sm-inline-block">Details</a>*@
+                @*<a href="/HR/Emplotee/Update/@item.Id" class="nav-link d-sm-inline-block">Edit</a>
+            <a href="/HR/Emplotee/Delete/@item.Id" class="nav-link d-sm-inline-block">Delete</a>*@
+            </td>
+        </tr>
         }
     </tbody>
 </table>

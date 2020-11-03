@@ -14,17 +14,17 @@ namespace LeaveManagment.ServiceLayer
 {
     public interface IEmployeeService
     {
-        void InsertEmployee(RegisterViewModel rvm);
-        void UpdateEmployeeDetails(UpdateEmployeeViewModel uevm);
-        void DeleteEmployee(String ID);
+        bool InsertEmployee(RegisterViewModel rvm);
+        bool UpdateEmployeeDetails(UpdateEmployeeViewModel uevm);
+        bool DeleteEmployee(String ID);
         List<EmployeeViewModel> GetEmployees();
         List<EmployeeViewModel> GetEmployeesByRoles(string role);
         EmployeeViewModel GetEmployeeByEmail(string Email);
         EmployeeViewModel GetEmployeeByID(String ID);
-        void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm);
-        void UpdatePassword(UpdatePasswordViewModel upvm);
-         void UpdateImageUrl(UpdateImageUrlViewModel uiuvm);
-        void UpdateEmployeeDetailsByHR(UpdateEmployeeByHRViewModel uevm);
+        bool Login(IAuthenticationManager authenticationManager, LoginViewModel lvm);
+        bool UpdatePassword(UpdatePasswordViewModel upvm);
+         bool UpdateImageUrl(UpdateImageUrlViewModel uiuvm);
+        bool UpdateEmployeeDetailsByHR(UpdateEmployeeByHRViewModel uevm);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -38,9 +38,10 @@ namespace LeaveManagment.ServiceLayer
             pr = new ProjectManagerRoleRepository();
         }
 
-        public void DeleteEmployee(string ID)
+        public bool DeleteEmployee(string ID)
         {
             var result = er.DeleteEmployee(ID);
+            return result;
         }
 
         public List<EmployeeViewModel> GetEmployeesByRoles(string role)
@@ -86,7 +87,7 @@ namespace LeaveManagment.ServiceLayer
             return null;
         }
 
-        public void InsertEmployee(RegisterViewModel rvm)
+        public bool InsertEmployee(RegisterViewModel rvm)
         {
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<RegisterViewModel, Employee>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
@@ -110,37 +111,43 @@ namespace LeaveManagment.ServiceLayer
                     pr.InsertPM(projectManger);
                 }
             }
+            return result;
         }
 
-        public void Login(IAuthenticationManager authenticationManager, LoginViewModel lvm)
+        public bool Login(IAuthenticationManager authenticationManager, LoginViewModel lvm)
         {
           
-            er.Login(authenticationManager, lvm.Email,lvm.Password);
+            var result = er.Login(authenticationManager, lvm.Email,lvm.Password);
+            return result;
         }
 
-        public void UpdateEmployeeDetails(UpdateEmployeeViewModel uevm)
+        public bool UpdateEmployeeDetails(UpdateEmployeeViewModel uevm)
         {
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<UpdateEmployeeViewModel, Employee>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
             Employee e = mapper.Map<UpdateEmployeeViewModel, Employee>(uevm);
             var result = er.UpdateEmpolyeeDetails(e);
+            return result;
         }
-        public void UpdateEmployeeDetailsByHR(UpdateEmployeeByHRViewModel uevm)
+        public bool UpdateEmployeeDetailsByHR(UpdateEmployeeByHRViewModel uevm)
         {
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<UpdateEmployeeByHRViewModel, Employee>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
             Employee e = mapper.Map<UpdateEmployeeByHRViewModel, Employee>(uevm);
             var result = er.UpdateEmpolyeeDetailsByHR(e);
+            return result;
         }
 
-        public void UpdatePassword(UpdatePasswordViewModel upvm)
+        public bool UpdatePassword(UpdatePasswordViewModel upvm)
         {
             var result = er.UpdatePassword(upvm.Id, upvm.CurrentPassword, upvm.NewPassword);
+            return result;
         }
 
-        public void UpdateImageUrl(UpdateImageUrlViewModel uiuvm)
+        public bool UpdateImageUrl(UpdateImageUrlViewModel uiuvm)
         {
-            er.UpdateImageUrl(uiuvm.Id, uiuvm.ImageUrl);
+            var result = er.UpdateImageUrl(uiuvm.Id, uiuvm.ImageUrl);
+            return result;
         }
     }
 }

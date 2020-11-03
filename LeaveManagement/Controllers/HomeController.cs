@@ -1,4 +1,5 @@
-﻿using LeaveManagement.ViewModel.Employee;
+﻿using LeaveManagement.Filters;
+using LeaveManagement.ViewModel.Employee;
 using LeaveManagment.ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LeaveManagement.Controllers
 {
+    [MyAuthenticationFilter]
     public class HomeController : Controller
     {
         IEmployeeService es;

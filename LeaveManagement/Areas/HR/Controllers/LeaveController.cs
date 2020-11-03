@@ -14,9 +14,11 @@ namespace LeaveManagement.Areas.HR.Controllers
     {
         // GET: HR/Leave
             ILeaveService ls;
-            public LeaveController(ILeaveService ls)
+        IEmployeeService es;
+            public LeaveController(ILeaveService ls,IEmployeeService es)
             {
                 this.ls = ls;
+                this.es = es;
             }
             // GET: PM/Leave
             [ActionName("Status")]
@@ -31,10 +33,22 @@ namespace LeaveManagement.Areas.HR.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    this.ls.UpdateLeaveStatus(ulsvm);
-                    return RedirectToAction("Status", "Leave", new { area = "PM", LeaveID = ulsvm.LeaveID });
+                    var res = this.ls.UpdateLeaveStatus(ulsvm);
+                    if (res)
+                    {
+                        var lvm = this.ls.GetLeaveByID(ulsvm.LeaveID);
+                        var evm = this.es.GetEmployeeByID(lvm.EmployeeID);
+                        string subject = "Leave" + lvm.LeaveStatus;
+                        string body = "<p>Hi " + lvm.EmployeeName + ", </p><br/><p>Your leave has been " + lvm.LeaveStatus + " by " + Session["CurrentUserName"] + ".</p>";
+                        var result = this.ls.SendEmail(evm.Email, subject, body);
+                        return RedirectToAction("Status", "Leave", new { area = "PM", LeaveID = ulsvm.LeaveID });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Status", "Leave", new { area = "PM", LeaveID = ulsvm.LeaveID });
+                    }
 
-                }
+            }
                 else
                 {
                     ModelState.AddModelError("x", "Invalid data");

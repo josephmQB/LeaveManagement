@@ -16,7 +16,7 @@ namespace LeaveManagement.ViewModel.Employee
         [Required]
         public string NewPassword { get; set; }
         [Required]
-        [Compare("Password")]
+        [Compare("NewPassword")]
         public string NewConfirmPassword { get; set; }
     }
 }

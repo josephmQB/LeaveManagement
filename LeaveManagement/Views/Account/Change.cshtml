@@ -1,0 +1,64 @@
+﻿@model LeaveManagement.ViewModel.Employee.UpdatePasswordViewModel
+
+@{
+    ViewBag.Title = "Change";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="my-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card col-sm-4">
+            <h1 class="card-title text-center mt-4">Change Password</h1>
+            <div class="card-body">
+                <form action="/account/change" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group mr-3">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <label for="CurrentPassword" class="mr-1">Current Password</label>
+                        <input type="password" class="form-control" id="CurrentPassword" name="CurrentPassword" autofocus="autofocus">
+                        @Html.ValidationMessageFor(temp => temp.CurrentPassword)
+                    </div>
+
+                    <div class="form-group mr-3">
+                        <label for="NewPassword" class="mr-1">New Password</label>
+                        <input type="password" class="form-control" id="NewPassword" name="NewPassword" minlength="6">
+                        @Html.ValidationMessageFor(temp => temp.NewPassword)
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="NewConfirmPassword" class="mr-1">New Confirm Password</label>
+                        <input type="password" class="form-control" id="NewConfirmPassword" name="NewConfirmPassword" minlength="6">
+                        @Html.ValidationMessageFor(temp => temp.NewConfirmPassword)
+                    </div>
+
+                    @Html.ValidationSummary()
+                    <div class="form-row justify-content-center align-items-center">
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary align-items-center mt-4">Change</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        var password;
+        $("#NewPassword").blur(function () {
+             password = this.value;
+        });
+        $("#NewConfirmPassword").keyup(function () {
+            var confirmPassword = this.value;
+            var item = $("#NewConfirmPassword").next();
+            if (password == confirmPassword) {
+                item.text("");
+                $("button").removeAttr("disabled");
+            }
+            else {
+                item.text("Does not match");
+                $("button").attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+

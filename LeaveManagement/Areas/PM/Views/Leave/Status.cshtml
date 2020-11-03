@@ -33,7 +33,9 @@
     </tr>
     <tr>
         <th>Status</th>
-        <td><a data-toggle="modal" data-target="#StatusModal" t>@Model.LeaveStatus</a></td>
+        @if (Model.LeaveStatus == "Pending")
+        { <td><a data-toggle="modal" data-target="#StatusModal" >@Model.LeaveStatus</a></td>}
+        else {<td>@Model.LeaveStatus</td> }
     </tr>
     @if (Model.Remarks != null)
     {
@@ -44,6 +46,8 @@
     }
 
 </table>
+@if (Model.LeaveStatus == "Pending")
+{
 <div class="modal fade" id="StatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -74,7 +78,7 @@
                         </select>
                     </div>
                     <div class="form-row mr-3">
-                        <label for="remark">Address</label>
+                        <label for="remark">Remarks</label>
                         <textarea class="form-control" id="remark" placeholder="Remark" name="Remarks">@Model.Remarks</textarea>
                     </div>
                     <div class="form-row">
@@ -87,5 +91,6 @@
         </div>
     </div>
 </div>
+}
 <a href="/PM/Leave/show" class="nav-link">Back to Leaves</a>
 

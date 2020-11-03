@@ -14,7 +14,7 @@ namespace LeaveManagement.Repository
         List<Leave> GetLeavesByEmpolyeeID(string EmpID);
         List<Leave> GetLeaves();
         List<Leave> GetLeavesByPmID(int PmID);
-        void UpdateLeaveStatus(Leave l);
+        bool UpdateLeaveStatus(Leave l);
         int GetLastestLeaveId();
 
     }
@@ -52,15 +52,18 @@ namespace LeaveManagement.Repository
             db.SaveChanges();
         }
 
-        public void UpdateLeaveStatus(Leave l)
+        public bool UpdateLeaveStatus(Leave l)
         {
             Leave leave = db.Leaves.Where(temp => temp.LeaveID == l.LeaveID).FirstOrDefault();
             if (leave != null)
             {
                 leave.LeaveStatus = l.LeaveStatus;
                 leave.Remarks = l.Remarks;
-                db.SaveChanges();
+                var entries = db.SaveChanges();
+                if (entries != 0)
+                    return true;
             }
+            return false;
         }
         public int GetLastestLeaveId()
         {
