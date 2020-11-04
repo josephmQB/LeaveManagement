@@ -33,8 +33,8 @@ namespace LeaveManagment.ServiceLayer
         {
             try
             {
-                string senerEmail = "josephmilanmd@gmail.com";
-                string senderPassword = "F@c0nS2412";
+                string senerEmail = "Your email";
+                string senderPassword = "Your password";
 
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                 client.EnableSsl = true;
